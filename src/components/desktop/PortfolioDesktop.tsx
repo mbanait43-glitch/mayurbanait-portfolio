@@ -341,7 +341,7 @@ export const PortfolioDesktop: React.FC = () => {
       {/* 2. MAIN WORKSPACE WITH CENTRAL HOME BOX (RESPONSIVE & CLEAN) */}
       {/* ============================================================ */}
       <main className="relative z-20 flex-1 flex flex-col items-center justify-center px-3 sm:px-6 pt-10 pb-6 sm:py-14 my-auto w-full">
-        <div className="relative w-full max-w-[540px] sm:max-w-[620px]">
+        <div className="relative w-full max-w-[580px] sm:max-w-[680px] md:max-w-[720px]">
           {/* ======================================================== */}
           {/* STAR MASCOT: PROPERLY ARRANGED & SCALED (NO BOTTOM BUBBLE)*/}
           {/* ======================================================== */}
@@ -398,11 +398,11 @@ export const PortfolioDesktop: React.FC = () => {
           {/* ======================================================== */}
           {/* THE HOME BOX (EXACT ORIGINAL BOX & ORIGINAL ICONS)       */}
           {/* ======================================================== */}
-          <div className="rounded-xl overflow-hidden box-shadow-card bg-white dark:bg-[#1e232b] border border-slate-200/90 dark:border-slate-700/90">
+          <div className="rounded-2xl overflow-hidden box-shadow-card bg-white dark:bg-[#1e232b] border border-slate-200/90 dark:border-slate-700/90">
             {/* Dark Title Bar: "home" on left (with left padding to avoid star overlap) and 3 retro OS window control dots */}
             <div
               onClick={activeWindow ? handleCloseWindow : undefined}
-              className={`bg-[#383c44] dark:bg-[#22262e] text-white pl-12 sm:pl-16 pr-5 sm:pr-6 py-2.5 sm:py-3 select-none flex items-center justify-between transition-colors ${
+              className={`bg-[#383c44] dark:bg-[#22262e] text-white pl-12 sm:pl-16 pr-5 sm:pr-6 py-2.5 sm:py-3.5 select-none flex items-center justify-between transition-colors ${
                 activeWindow ? "cursor-pointer hover:bg-[#434852]" : ""
               }`}
               title={activeWindow ? "Click to bring home to front" : undefined}
@@ -429,9 +429,9 @@ export const PortfolioDesktop: React.FC = () => {
             </div>
 
             {/* White Body with Greeting, Subtitle, Resume Button, and 6 Original Icons directly on card */}
-            <div className="p-5 sm:p-10 flex flex-col items-center text-center">
+            <div className="p-6 sm:p-10 md:p-12 flex flex-col items-center text-center">
               {/* Heading */}
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight mb-1 sm:mb-2">
+              <h1 className="text-3xl sm:text-5xl md:text-5xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight mb-1 sm:mb-2">
                 Hi 👋{" "}
                 <span className="text-[#f59e0b] dark:text-[#f59e0b]">
                   i&apos;m Mayur
@@ -439,7 +439,7 @@ export const PortfolioDesktop: React.FC = () => {
               </h1>
 
               {/* Subtitle */}
-              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-base font-normal mb-2.5 sm:mb-3 max-w-[340px] sm:max-w-md">
+              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-base font-normal mb-3 sm:mb-4 max-w-[360px] sm:max-w-md">
                 full-stack developer, software engineer, and problem solver
               </p>
 
@@ -451,7 +451,7 @@ export const PortfolioDesktop: React.FC = () => {
                 onMouseEnter={() => sound.playHover()}
                 onTouchStart={() => sound.playTouchFeedback()}
                 onClick={() => sound.playClick()}
-                className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-7 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-600 font-mono text-xs sm:text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow group"
+                className="inline-flex items-center gap-1.5 sm:gap-2 px-4 py-2 mb-4 sm:mb-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-600 font-mono text-xs sm:text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow group"
                 title="Open Mayur's Resume in a new tab"
               >
                 <FileText className="w-3.5 h-3.5 text-amber-500 group-hover:scale-110 transition-transform" />
@@ -460,7 +460,7 @@ export const PortfolioDesktop: React.FC = () => {
               </a>
 
               {/* 6 Original Icons directly on card: strictly forward Sa-Re-Ga-Ma progression */}
-              <div className="grid grid-cols-3 sm:flex sm:flex-row justify-center items-center gap-3 sm:gap-7 pt-1 sm:pt-2">
+              <div className="grid grid-cols-3 sm:flex sm:flex-row justify-center items-center gap-3 sm:gap-7 md:gap-8 pt-1 sm:pt-2">
                 {NAV_ITEMS.map((item) => (
                   <button
                     key={item.id}
@@ -468,21 +468,21 @@ export const PortfolioDesktop: React.FC = () => {
                     onMouseEnter={() => sound.playSkillHover()}
                     onTouchStart={() => sound.playSkillHover()}
                     onClick={() => handleOpenWindow(item.id)}
-                    className="flex flex-col items-center duration-200 cursor-pointer hover:scale-110 active:scale-90 focus:outline-none group p-1 sm:p-2 rounded-lg"
+                    className="flex flex-col items-center duration-200 cursor-pointer hover:scale-110 active:scale-90 focus:outline-none group p-1.5 sm:p-2 rounded-lg"
                     title={`Open ${item.label}`}
                   >
                     {item.icon ? (
-                      <div className="w-[44px] h-[44px] sm:w-[52px] sm:h-[52px] flex items-center justify-center">
+                      <div className="w-[46px] h-[46px] sm:w-[56px] sm:h-[56px] flex items-center justify-center">
                         {item.icon}
                       </div>
                     ) : (
                       <Image
                         src={(isDark ? item.imgDark : item.imgLight) || "/images/icon_work.webp"}
                         alt={item.label}
-                        width={52}
-                        height={52}
+                        width={56}
+                        height={56}
                         draggable={false}
-                        className="drop-shadow-flat select-none w-[44px] h-[44px] sm:w-[52px] sm:h-[52px]"
+                        className="drop-shadow-flat select-none w-[46px] h-[46px] sm:w-[56px] sm:h-[56px]"
                       />
                     )}
                     <span className="font-mono text-center text-slate-500 dark:text-slate-400 font-bold text-[11px] sm:text-sm mt-1.5 sm:mt-2 group-hover:text-slate-800 dark:group-hover:text-white transition-colors">
@@ -499,7 +499,7 @@ export const PortfolioDesktop: React.FC = () => {
       {/* ============================================================ */}
       {/* 3. FLOATING MASCOT 2: FROG ON LILYPAD (Click Plays Cozy BGM) */}
       {/* ============================================================ */}
-      <div className="fixed bottom-6 right-3 sm:right-12 z-[45] pointer-events-auto select-none">
+      <div className="fixed bottom-8 sm:bottom-12 right-3 sm:right-12 z-[45] pointer-events-auto select-none">
         <div className="relative">
           {/* Frog Speech Bubble */}
           <AnimatePresence>
@@ -558,14 +558,14 @@ export const PortfolioDesktop: React.FC = () => {
       {/* ============================================================ */}
       {/* 4. BOTTOM HORIZON (Animated Multi-Layer Water Waves)        */}
       {/* ============================================================ */}
-      <div className="fixed pointer-events-none bottom-0 left-0 right-0 w-full h-[120px] sm:h-[160px] overflow-hidden leading-none z-10">
+      <div className="fixed pointer-events-none bottom-0 left-0 right-0 w-full h-[170px] sm:h-[220px] md:h-[250px] overflow-hidden leading-none z-10">
         {/* Layer 1 - Deep Slow Undulating Wave */}
         <div className="absolute inset-0 w-[115%] -left-[7.5%] bottom-0 flex items-end animate-water-wave-slow opacity-35">
           <svg
             viewBox="0 0 1440 260"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full min-h-[120px] sm:min-h-[160px]"
+            className="w-full h-full min-h-[170px] sm:min-h-[220px] md:min-h-[250px]"
             preserveAspectRatio="none"
           >
             <path
@@ -581,7 +581,7 @@ export const PortfolioDesktop: React.FC = () => {
             viewBox="0 0 1440 260"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full min-h-[120px] sm:min-h-[160px]"
+            className="w-full h-full min-h-[170px] sm:min-h-[220px] md:min-h-[250px]"
             preserveAspectRatio="none"
           >
             <path
@@ -597,7 +597,7 @@ export const PortfolioDesktop: React.FC = () => {
             viewBox="0 0 1440 260"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full min-h-[120px] sm:min-h-[160px]"
+            className="w-full h-full min-h-[170px] sm:min-h-[220px] md:min-h-[250px]"
             preserveAspectRatio="none"
           >
             <path

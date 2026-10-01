@@ -157,11 +157,12 @@ export const PORTFOLIO_DATA = {
       category: "MERN",
       type: "web",
       image: "/projects/job-portal.png",
-      status: "In Progress / Active Development",
-      inProgress: true,
-      progressPercent: 88,
+      status: "Production Ready",
+      githubUrl: "https://github.com/mbanait43-glitch",
+      liveUrl: "https://github.com/mbanait43-glitch",
+      progressPercent: 95,
       progressNote:
-        "Full-stack MERN platform connecting job seekers with recruiters, featuring resume uploads, application pipeline tracking, and role-based dashboards. Source code & live staging are in active development.",
+        "Full-stack recruitment and talent acquisition platform with automated resume parsing, interactive application tracking, and secure recruiter analytics dashboard.",
       description:
         "A full-stack recruitment platform connecting job seekers with hiring teams, featuring resume uploads, job categorization, application pipeline tracking, and recruiter dashboards.",
       stack: ["React", "Node.js", "Express.js", "MongoDB", "JWT"],

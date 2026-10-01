@@ -483,18 +483,18 @@ export const AboutContent: React.FC<AboutContentProps> = ({ onNavigate }) => {
                 className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#252a34] overflow-hidden shadow-sm transition-all duration-250 flex flex-col group hover:-translate-y-1 hover:shadow-lg hover:border-amber-400 dark:hover:border-amber-500"
                 style={{ transition: "transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease, border-color 0.2s ease" }}
               >
-                {/* Screenshot Thumbnail */}
+                {/* Screenshot Thumbnail - Fits full screenshot properly in box without cropping */}
                 {project.image && (
-                  <div className="relative w-full h-32 bg-slate-900 overflow-hidden border-b border-slate-200 dark:border-slate-700">
+                  <div className="relative w-full h-44 sm:h-52 bg-[#0d1117] overflow-hidden border-b border-slate-200 dark:border-slate-700/80 flex items-center justify-center p-2">
                     <Image
                       src={project.image}
                       alt={project.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
                       loading="lazy"
-                      className={`${isExt ? "object-contain p-1.5" : "object-cover object-top"} transition-transform duration-400 group-hover:scale-108`}
+                      className="object-contain transition-transform duration-300 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   </div>
                 )}
 

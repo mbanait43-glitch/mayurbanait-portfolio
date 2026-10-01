@@ -196,10 +196,10 @@ export const ProjectsContent: React.FC = () => {
                       </span>
                     </div>
 
-                    {/* Screenshot Container with Click to Enlarge */}
+                    {/* Screenshot Container with Click to Enlarge - Full screenshot fits inside box properly */}
                     <div
                       onClick={() => handleOpenImage(project.image!, project.title)}
-                      className="relative w-full h-[calc(100%-32px)] cursor-pointer group/img overflow-hidden"
+                      className="relative w-full h-[calc(100%-32px)] cursor-pointer group/img overflow-hidden bg-[#0d1117] flex items-center justify-center p-2"
                       title="Click to inspect full screenshot"
                     >
                       <Image
@@ -207,14 +207,10 @@ export const ProjectsContent: React.FC = () => {
                         alt={project.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className={`${
-                          isExtension
-                            ? "object-contain bg-[#0f141c] p-2"
-                            : "object-cover object-top"
-                        } transition-transform duration-300 group-hover/img:scale-105`}
+                        className="object-contain transition-transform duration-300 group-hover/img:scale-105"
                       />
                       {/* Zoom Hint Overlay */}
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold pointer-events-none">
+                      <div className="absolute inset-0 bg-black/35 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold pointer-events-none">
                         <ZoomIn className="w-4 h-4" />
                         <span>Enlarge Screenshot</span>
                       </div>
@@ -330,7 +326,28 @@ export const ProjectsContent: React.FC = () => {
               {/* Card Footer Actions (Code & Demo / Status Specs)     */}
               {/* ---------------------------------------------------- */}
               <div className="p-6 pt-0 flex items-center gap-2.5 border-t border-slate-100 dark:border-slate-800 mt-3">
-                {project.githubUrl && !project.inProgress ? (
+                {project.id === "job-portal" ? (
+                  <>
+                    <a
+                      href={project.githubUrl || "https://github.com/mbanait43-glitch"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => sound.playClick()}
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 text-slate-800 dark:text-slate-100 text-xs font-mono font-bold shadow-xs hover:scale-102 active:scale-98 transition-all"
+                    >
+                      <Github className="w-3.5 h-3.5" />
+                      <span>View Code</span>
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => handleOpenStatusModal(project)}
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-mono font-bold shadow-xs hover:scale-102 active:scale-98 transition-all cursor-pointer"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Live Demo</span>
+                    </button>
+                  </>
+                ) : project.githubUrl && !project.inProgress ? (
                   <a
                     href={project.githubUrl}
                     target="_blank"
@@ -352,7 +369,7 @@ export const ProjectsContent: React.FC = () => {
                   </button>
                 )}
 
-                {project.liveUrl && !project.inProgress ? (
+                {project.id === "job-portal" ? null : project.liveUrl && !project.inProgress ? (
                   <a
                     href={project.liveUrl}
                     target="_blank"
@@ -363,7 +380,7 @@ export const ProjectsContent: React.FC = () => {
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>{isExtension ? "Open Extension" : "Live Demo"}</span>
                   </a>
-                ) : (
+                ) : project.id === "job-portal" ? null : (
                   <button
                     type="button"
                     onClick={() => handleOpenStatusModal(project)}
@@ -581,12 +598,23 @@ export const ProjectsContent: React.FC = () => {
               {/* Action Buttons */}
               <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
                 <a
-                  href={`mailto:${profile.email}?subject=${encodeURIComponent(`Project Access Request: ${statusModalProject.title}`)}&body=${encodeURIComponent(`Hi Mayur,\n\nI reviewed your portfolio and would like to request technical details / preview access for "${statusModalProject.title}".\n\nThanks!`)}`}
+                  href={statusModalProject.githubUrl || "https://github.com/mbanait43-glitch"}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => sound.playClick()}
                   className="w-full sm:flex-1 py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-mono text-xs font-bold shadow-md hover:scale-102 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
+                  <Github className="w-4 h-4" />
+                  <span>View GitHub Profile</span>
+                </a>
+
+                <a
+                  href={`mailto:${profile.email}?subject=${encodeURIComponent(`Project Access Request: ${statusModalProject.title}`)}&body=${encodeURIComponent(`Hi Mayur,\n\nI reviewed your portfolio and would like to request technical details / preview access for "${statusModalProject.title}".\n\nThanks!`)}`}
+                  onClick={() => sound.playClick()}
+                  className="w-full sm:w-auto py-2.5 px-4 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50/60 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-900/40 text-amber-900 dark:text-amber-200 font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
                   <Mail className="w-4 h-4" />
-                  <span>Request Demo / Access</span>
+                  <span>Request Staging</span>
                 </a>
 
                 <button
