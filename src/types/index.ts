@@ -38,6 +38,9 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   featured?: boolean;
+  inProgress?: boolean;
+  progressPercent?: number;
+  progressNote?: string;
 }
 
 export interface ExperienceItem {

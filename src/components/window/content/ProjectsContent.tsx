@@ -20,6 +20,9 @@ import {
   Sparkle,
   X,
   Laptop,
+  Lock,
+  Mail,
+  Copy,
 } from "lucide-react";
 
 type FilterTab =
@@ -36,6 +39,8 @@ export const ProjectsContent: React.FC = () => {
     url: string;
     title: string;
   } | null>(null);
+  const [statusModalProject, setStatusModalProject] = useState<Project | null>(null);
+  const [copiedSpecs, setCopiedSpecs] = useState<boolean>(false);
 
   const { projects, profile } = PORTFOLIO_DATA;
 
@@ -68,6 +73,29 @@ export const ProjectsContent: React.FC = () => {
   const handleCloseImage = () => {
     sound.playClickClose();
     setSelectedImage(null);
+  };
+
+  const handleOpenStatusModal = (project: Project) => {
+    sound.playOpen();
+    setStatusModalProject(project);
+    setCopiedSpecs(false);
+  };
+
+  const handleCloseStatusModal = () => {
+    sound.playClickClose();
+    setStatusModalProject(null);
+    setCopiedSpecs(false);
+  };
+
+  const handleCopySpecs = () => {
+    if (!statusModalProject) return;
+    sound.playClick();
+    const summary = `${statusModalProject.title} (${statusModalProject.category})\nStatus: ${statusModalProject.status || "In Progress"}\nTech Stack: ${statusModalProject.stack.join(", ")}\nHighlights:\n${statusModalProject.highlights.map((h) => `- ${h}`).join("\n")}`;
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(summary);
+    }
+    setCopiedSpecs(true);
+    setTimeout(() => setCopiedSpecs(false), 3000);
   };
 
   return (
@@ -293,10 +321,10 @@ export const ProjectsContent: React.FC = () => {
               </div>
 
               {/* ---------------------------------------------------- */}
-              {/* Card Footer Actions (Code & Demo)                    */}
+              {/* Card Footer Actions (Code & Demo / Status Specs)     */}
               {/* ---------------------------------------------------- */}
               <div className="p-6 pt-0 flex items-center gap-2.5 border-t border-slate-100 dark:border-slate-800 mt-3">
-                {project.githubUrl && (
+                {project.githubUrl && !project.inProgress ? (
                   <a
                     href={project.githubUrl}
                     target="_blank"
@@ -307,9 +335,18 @@ export const ProjectsContent: React.FC = () => {
                     <Github className="w-3.5 h-3.5" />
                     <span>View Code</span>
                   </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => handleOpenStatusModal(project)}
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-amber-300/80 dark:border-amber-700/80 bg-amber-50/70 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-900/40 text-amber-800 dark:text-amber-200 text-xs font-mono font-bold shadow-xs hover:scale-102 active:scale-98 transition-all cursor-pointer"
+                  >
+                    <Code2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                    <span>Source Specs</span>
+                  </button>
                 )}
 
-                {project.liveUrl && (
+                {project.liveUrl && !project.inProgress ? (
                   <a
                     href={project.liveUrl}
                     target="_blank"
@@ -318,8 +355,17 @@ export const ProjectsContent: React.FC = () => {
                     className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-mono font-bold shadow-xs hover:scale-102 active:scale-98 transition-all"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
-                    <span>{isExtension ? "WebStore / Info" : "Live Demo"}</span>
+                    <span>{isExtension ? "Open Extension" : "Live Demo"}</span>
                   </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => handleOpenStatusModal(project)}
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xs font-mono font-bold shadow-xs hover:scale-102 active:scale-98 transition-all cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Status &amp; Specs</span>
+                  </button>
                 )}
               </div>
             </div>
@@ -394,6 +440,174 @@ export const ProjectsContent: React.FC = () => {
               >
                 Close Viewer
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================ */}
+      {/* 6. PROJECT STATUS & ARCHITECTURE PREVIEW MODAL               */}
+      {/* ============================================================ */}
+      {statusModalProject && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-[75] flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm animate-fade-in"
+          onClick={handleCloseStatusModal}
+        >
+          <div
+            className="relative max-w-2xl w-full max-h-[90vh] bg-white dark:bg-[#1f242d] rounded-2xl overflow-hidden shadow-2xl border-2 border-slate-700 dark:border-slate-600 flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Retro Titlebar */}
+            <div className="bg-[#383c44] dark:bg-[#22262e] text-white px-5 py-3 flex items-center justify-between select-none shadow-sm flex-shrink-0">
+              <div className="flex items-center gap-2.5 overflow-hidden">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+                </div>
+                <span className="font-mono text-xs sm:text-sm font-bold text-amber-300 truncate">
+                  PROJECT STATUS &amp; ARCHITECTURE — {statusModalProject.title}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleCloseStatusModal}
+                className="font-mono text-base font-bold text-white/80 hover:text-white px-2 py-0.5 rounded hover:bg-white/10 active:scale-80 cursor-pointer"
+              >
+                [x]
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="p-5 sm:p-7 overflow-y-auto modal-scroll space-y-5 text-slate-800 dark:text-slate-100">
+              {/* Status Beacon & Progress Banner */}
+              <div className="p-4 rounded-xl border border-amber-300/80 dark:border-amber-700/80 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/20">
+                <div className="flex items-center justify-between gap-2 flex-wrap mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                    </span>
+                    <span className="font-mono text-xs font-bold text-amber-900 dark:text-amber-200 uppercase tracking-wide">
+                      Active Development / In Progress
+                    </span>
+                  </div>
+                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-amber-200/80 dark:bg-amber-800/80 text-amber-900 dark:text-amber-100">
+                    {statusModalProject.progressPercent || 85}% Completed
+                  </span>
+                </div>
+
+                {/* Animated Progress Bar */}
+                <div className="w-full bg-amber-200/60 dark:bg-amber-900/40 h-2.5 rounded-full overflow-hidden shadow-inner mb-2.5">
+                  <div
+                    className="bg-gradient-to-r from-amber-500 to-amber-600 h-full rounded-full transition-all duration-500 animate-pulse"
+                    style={{ width: `${statusModalProject.progressPercent || 85}%` }}
+                  />
+                </div>
+
+                <p className="text-xs text-amber-900/90 dark:text-amber-200/90 leading-relaxed font-sans">
+                  {statusModalProject.progressNote ||
+                    "This project is currently in active development. Backend architecture and core modules are functional. Public deployment and source repository release are scheduled for upcoming release."}
+                </p>
+              </div>
+
+              {/* Project Description & Architecture Highlights */}
+              <div>
+                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                  System Overview &amp; Architecture
+                </h4>
+                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {statusModalProject.description}
+                </p>
+              </div>
+
+              {/* Key Completed Modules */}
+              {statusModalProject.highlights && statusModalProject.highlights.length > 0 && (
+                <div>
+                  <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
+                    Completed Modules &amp; Engineered Features
+                  </h4>
+                  <div className="space-y-2">
+                    {statusModalProject.highlights.map((h, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 text-xs text-slate-700 dark:text-slate-300"
+                      >
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Tech Stack Chips */}
+              <div>
+                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                  Engineered With
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {statusModalProject.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Live Staging / Private Code Access Note */}
+              <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                <div className="font-mono font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Confidential Codebase &amp; Staging Security</span>
+                </div>
+                <p>
+                  To protect proprietary candidate data and system logic, live staging and repository access are available upon request for technical evaluation and recruiters.
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+                <a
+                  href={`mailto:${profile.email}?subject=${encodeURIComponent(`Project Access Request: ${statusModalProject.title}`)}&body=${encodeURIComponent(`Hi Mayur,\n\nI reviewed your portfolio and would like to request technical details / preview access for "${statusModalProject.title}".\n\nThanks!`)}`}
+                  onClick={() => sound.playClick()}
+                  className="w-full sm:flex-1 py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-mono text-xs font-bold shadow-md hover:scale-102 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>Request Demo / Access</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopySpecs}
+                  className="w-full sm:w-auto py-2.5 px-4 rounded-xl border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  {copiedSpecs ? (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      <span>Copy Specs</span>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleCloseStatusModal}
+                  className="w-full sm:w-auto py-2.5 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-mono text-xs font-bold transition-all cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>

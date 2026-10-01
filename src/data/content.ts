@@ -157,6 +157,11 @@ export const PORTFOLIO_DATA = {
       category: "MERN",
       type: "web",
       image: "/projects/job-portal.png",
+      status: "In Progress / Active Development",
+      inProgress: true,
+      progressPercent: 88,
+      progressNote:
+        "Full-stack MERN platform connecting job seekers with recruiters, featuring resume uploads, application pipeline tracking, and role-based dashboards. Source code & live staging are in active development.",
       description:
         "A full-stack recruitment platform connecting job seekers with hiring teams, featuring resume uploads, job categorization, application pipeline tracking, and recruiter dashboards.",
       stack: ["React", "Node.js", "Express.js", "MongoDB", "JWT"],
@@ -165,17 +170,15 @@ export const PORTFOLIO_DATA = {
         "Recruiter dashboard for posting vacancies, filtering applicants, and reviewing credentials.",
         "Secure MongoDB aggregation queries with JWT role authorization.",
       ],
-      githubUrl: "https://github.com/mbanait43-glitch",
-      liveUrl: "https://github.com/mbanait43-glitch",
       featured: true,
     },
     {
       id: "full-page-screenshot-ext",
-      title: "PageSnap Pro — Smart Full Page Screenshot Extension",
+      title: "Full Page Screenshot",
       category: "Extensions",
       type: "extension",
       image: "/projects/full-page-screenshot.png",
-      status: "Updated & Published",
+      status: "Released & Open Source",
       description:
         "A feature-rich Chrome Extension (Manifest V3) that intelligently captures entire scrolling web pages with one click. Eliminates sticky headers, supports manual custom scroll stitching, visible area snaps, and rectangular region selection with instant 100% local PNG/JPG export.",
       stack: [
@@ -191,8 +194,8 @@ export const PORTFOLIO_DATA = {
         "Visible Area (Alt+Shift+V) & Selected Area (Alt+Shift+S): Fast viewport captures and interactive draggable region selection.",
         "100% Local & Private: Client-side canvas image processing with direct PNG and JPG exports without network leakage.",
       ],
-      githubUrl: "https://github.com/mbanait43-glitch",
-      liveUrl: "https://github.com/mbanait43-glitch",
+      githubUrl: "https://github.com/mbanait43-glitch/Full-Page-Screenshot",
+      liveUrl: "https://github.com/mbanait43-glitch/Full-Page-Screenshot",
       featured: true,
     },
     {
@@ -200,7 +203,11 @@ export const PORTFOLIO_DATA = {
       title: "DevTab — Developer Quick Notes & Snippets",
       category: "Extensions",
       type: "extension",
-      status: "Updated / In Progress",
+      status: "In Progress / Staging",
+      inProgress: true,
+      progressPercent: 78,
+      progressNote:
+        "Developer productivity extension replacing new tabs with an offline markdown scratchpad, syntax highlighting, and local browser storage sync.",
       description:
         "A productivity-focused Chrome Extension replacing the new-tab screen with an engineer scratchpad, markdown quick notes, syntax-highlighted code snippet storage, and local storage sync.",
       stack: ["JavaScript", "Chrome Storage API", "Markdown", "Tailwind CSS"],
@@ -209,8 +216,6 @@ export const PORTFOLIO_DATA = {
         "Syntax highlighting for code blocks with one-click copy to clipboard.",
         "Minimalist retro dark mode with keyboard shortcuts for rapid developer logging.",
       ],
-      githubUrl: "https://github.com/mbanait43-glitch",
-      liveUrl: "https://github.com/mbanait43-glitch",
       featured: false,
     },
     {
@@ -218,7 +223,11 @@ export const PORTFOLIO_DATA = {
       title: "API Inspector & JSON Beautifier",
       category: "Extensions",
       type: "extension",
-      status: "Updated / Coming Soon",
+      status: "In Progress / Architecture",
+      inProgress: true,
+      progressPercent: 65,
+      progressNote:
+        "DevTools companion extension for intercepting, formatting, and validating JSON API responses with searchable tree views.",
       description:
         "A Chrome DevTools companion extension that intercepts, parses, formats, and validates JSON API payloads directly inside browser tabs with search and expandable tree hierarchy.",
       stack: ["TypeScript", "Chrome DevTools API", "React", "CSS3"],
@@ -227,8 +236,6 @@ export const PORTFOLIO_DATA = {
         "Searchable interactive tree view with type hints, copy paths, and curl generator.",
         "Lightweight footprint with zero external analytics or network leakage.",
       ],
-      githubUrl: "https://github.com/mbanait43-glitch",
-      liveUrl: "https://github.com/mbanait43-glitch",
       featured: false,
     },
   ] as Project[],

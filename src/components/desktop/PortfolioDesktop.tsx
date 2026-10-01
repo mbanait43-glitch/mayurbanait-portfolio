@@ -15,7 +15,7 @@ import {
 import { PORTFOLIO_DATA } from "@/data/content";
 import { sound } from "@/lib/sound";
 import { useSettingsStore } from "@/store/useSettingsStore";
-import { SharyapCertificatesIcon } from "@/components/common/SharyapIcons";
+import { PortfolioCertificatesIcon } from "@/components/common/PortfolioIcons";
 
 // Content Components for the secondary window
 import { AboutContent } from "@/components/window/content/AboutContent";
@@ -59,7 +59,7 @@ const NAV_ITEMS: NavItemConfig[] = [
     id: "certificates",
     label: "certificates",
     icon: (
-      <SharyapCertificatesIcon
+      <PortfolioCertificatesIcon
         size={48}
         className="text-[#383c44] dark:text-amber-400 drop-shadow-flat transition-transform"
       />
@@ -81,9 +81,9 @@ const NAV_ITEMS: NavItemConfig[] = [
 
 const STAR_HOVER_QUOTES = [
   "enjoy & have fun! ⭐",
-  "click me for magic! ✨",
   "welcome to my desktop! 🌟",
-  "hope you're having fun! 💡",
+  "hope you have a wonderful day! ✨",
+  "glad to see you here! 💡",
 ];
 
 const STAR_CLICK_QUOTES = [
@@ -92,7 +92,7 @@ const STAR_CLICK_QUOTES = [
   "Mayur writes clean, robust code!",
   "100+ DSA problems solved! 💡",
   "React.js & Spring Boot ready! 🚀",
-  "Click any box icon below!",
+  "Full-Stack Developer from SISTec-R!",
 ];
 
 const FROG_SWEET_MESSAGES_PLAY = [
@@ -109,7 +109,7 @@ const FROG_SWEET_MESSAGES_PAUSE = [
   "Ribbit! Resting for a bit. Touch to play! 🌿",
 ];
 
-export const SharyapDesktop: React.FC = () => {
+export const PortfolioDesktop: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const { soundEnabled, toggleSound, initFromStorage } = useSettingsStore();
 
@@ -350,20 +350,20 @@ export const SharyapDesktop: React.FC = () => {
             <AnimatePresence>
               {starSpeechQuote && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.9 }}
+                  initial={{ opacity: 0, y: 6, scale: 0.9 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -4, scale: 0.9 }}
                   transition={{ duration: 0.18 }}
-                  className="absolute -top-11 sm:-top-14 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 sm:px-4 py-1 sm:py-1.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-2xl text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-100 pointer-events-none z-50 select-none animate-bounce-subtle"
+                  className="absolute -top-10 sm:-top-13 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 sm:px-4 py-1 sm:py-1.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-2xl text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-100 pointer-events-none z-50 select-none animate-bounce-subtle"
                 >
                   <span>{starSpeechQuote}</span>
-                  {/* Downward pointer (nok) pointing straight at star's head */}
-                  <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white dark:bg-slate-800 border-r-2 border-b-2 border-amber-400 dark:border-amber-500 rotate-45" />
+                  {/* Downward pointer (choch) pointing cleanly to star's head */}
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-white dark:bg-slate-800 border-r-2 border-b-2 border-amber-400 dark:border-amber-500 rotate-45 rounded-xs shadow-xs" />
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Star Button with Hover Wiggle & Click Spin */}
+            {/* Star Button with Hover Wiggle & Click Spin (No ugly browser tooltip) */}
             <button
               type="button"
               onMouseEnter={handleStarMouseEnter}
@@ -371,7 +371,7 @@ export const SharyapDesktop: React.FC = () => {
               onClick={handleStarClick}
               style={{ touchAction: "manipulation" }}
               className="flex flex-col items-center cursor-pointer focus:outline-none select-none"
-              title="Click or tap Starry!"
+              aria-label="Star mascot"
             >
               <div
                 className={`transition-transform duration-300 ${
@@ -755,3 +755,4 @@ export const SharyapDesktop: React.FC = () => {
     </div>
   );
 };
+

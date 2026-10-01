@@ -6,7 +6,7 @@ interface IconProps {
 }
 
 // 1. About Icon: Speech bubble with an italic lowercase "i"
-export const SharyapAboutIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
+export const PortfolioAboutIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
   <svg
     width={size}
     height={size}
@@ -40,7 +40,7 @@ export const SharyapAboutIcon: React.FC<IconProps> = ({ className = "", size = 4
 );
 
 // 2. Links Icon: Two interlocking chain links tilted at 45 degrees
-export const SharyapLinksIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
+export const PortfolioLinksIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
   <svg
     width={size}
     height={size}
@@ -84,7 +84,7 @@ export const SharyapLinksIcon: React.FC<IconProps> = ({ className = "", size = 4
 );
 
 // 3. Work Icon: File folder with documents peeking out
-export const SharyapWorkIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
+export const PortfolioWorkIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
   <svg
     width={size}
     height={size}
@@ -132,7 +132,7 @@ export const SharyapWorkIcon: React.FC<IconProps> = ({ className = "", size = 48
 );
 
 // 4. FAQ / Skills Icon: Document with question mark
-export const SharyapFaqIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
+export const PortfolioFaqIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
   <svg
     width={size}
     height={size}
@@ -173,7 +173,7 @@ export const SharyapFaqIcon: React.FC<IconProps> = ({ className = "", size = 48 
 );
 
 // 5. Contact Icon: Postal envelope with stamp and spiral @
-export const SharyapContactIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
+export const PortfolioContactIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
   <svg
     width={size}
     height={size}
@@ -238,7 +238,7 @@ export const SharyapContactIcon: React.FC<IconProps> = ({ className = "", size =
 );
 
 // 6. Resume Icon: CV Sheet with folded corner and CV text
-export const SharyapCertificatesIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
+export const PortfolioCertificatesIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
   <svg
     width={size}
     height={size}
@@ -291,7 +291,7 @@ export const SharyapCertificatesIcon: React.FC<IconProps> = ({ className = "", s
   </svg>
 );
 
-export const SharyapResumeIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
+export const PortfolioResumeIcon: React.FC<IconProps> = ({ className = "", size = 48 }) => (
   <svg
     width={size}
     height={size}
@@ -348,7 +348,7 @@ export const SharyapResumeIcon: React.FC<IconProps> = ({ className = "", size = 
 );
 
 // 7. Floating Star Mascot: Kawaii warm smiling star with blush
-export const SharyapStarMascot: React.FC<{
+export const PortfolioStarMascot: React.FC<{
   className?: string;
   size?: number;
   onClick?: () => void;
@@ -411,7 +411,7 @@ export const SharyapStarMascot: React.FC<{
 );
 
 // 8. Frog on Lilypad Mascot (Froggert): Green frog with waterlily blossom
-export const SharyapFrogMascot: React.FC<{
+export const PortfolioFrogMascot: React.FC<{
   className?: string;
   size?: number;
   onClick?: () => void;
@@ -496,3 +496,4 @@ export const SharyapFrogMascot: React.FC<{
     </svg>
   </button>
 );
+

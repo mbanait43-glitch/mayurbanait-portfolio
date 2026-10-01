@@ -1,5 +1,5 @@
-import { SharyapDesktop } from "@/components/desktop/SharyapDesktop";
+import { PortfolioDesktop } from "@/components/desktop/PortfolioDesktop";
 
 export default function Home() {
-  return <SharyapDesktop />;
+  return <PortfolioDesktop />;
 }

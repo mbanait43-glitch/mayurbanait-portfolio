@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  /* Sharyap Light Aesthetic: Crisp White Sky, Pastel Blue Ground, Slate Bar, Amber Highlight */
+  /* Retro Desktop Light Aesthetic: Crisp White Sky, Pastel Blue Ground, Slate Bar, Amber Highlight */
   --color-desktop: #ffffff;
   --color-ground: #a3ccf7;
   --color-surface: #ffffff;
@@ -19,7 +19,7 @@
 }
 
 .dark {
-  /* Sharyap Dark Aesthetic: Deep Slate Sky, Midnight Blue Ground, Dark Charcoal Bar */
+  /* Retro Desktop Dark Aesthetic: Deep Slate Sky, Midnight Blue Ground, Dark Charcoal Bar */
   --color-desktop: #181b22;
   --color-ground: #1e2b3c;
   --color-surface: #222630;
