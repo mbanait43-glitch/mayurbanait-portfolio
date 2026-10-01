@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Sharyap Light Aesthetic: Crisp White Sky, Pastel Blue Ground, Slate Bar, Amber Highlight */
+  --color-desktop: #ffffff;
+  --color-ground: #a3ccf7;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f4f6f8;
+  --color-ink: #1e293b;
+  --color-ink-muted: #64748b;
+  --color-titlebar: #383c44;
+  --color-titlebar-text: #ffffff;
+  --color-accent: #f59e0b;
+  --color-accent-hover: #d97706;
+  --color-border: #e2e8f0;
+  --color-shadow: rgba(0, 0, 0, 0.08);
+}
+
+.dark {
+  /* Sharyap Dark Aesthetic: Deep Slate Sky, Midnight Blue Ground, Dark Charcoal Bar */
+  --color-desktop: #181b22;
+  --color-ground: #1e2b3c;
+  --color-surface: #222630;
+  --color-surface-muted: #1a1e27;
+  --color-ink: #f8fafc;
+  --color-ink-muted: #94a3b8;
+  --color-titlebar: #252932;
+  --color-titlebar-text: #ffffff;
+  --color-accent: #fbbf24;
+  --color-accent-hover: #f59e0b;
+  --color-border: #333a48;
+  --color-shadow: rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--color-ink);
+  background-color: var(--color-desktop);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+/* Enable text selection inside window content bodies */
+.selectable-text {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Bobbing animation for mascots */
+@keyframes bobbing {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes bobbing-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+/* Star Mascot playful hover wiggle / hilna-jhulna */
+@keyframes star-wiggle {
+  0%, 100% {
+    transform: translateY(-4px) rotate(0deg) scale(1.12);
+  }
+  25% {
+    transform: translateY(-8px) rotate(-9deg) scale(1.18);
+  }
+  50% {
+    transform: translateY(-4px) rotate(0deg) scale(1.12);
+  }
+  75% {
+    transform: translateY(-8px) rotate(9deg) scale(1.18);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-bobbing {
+  animation: bobbing 3s ease-in-out infinite;
+}
+
+.animate-bobbing-slow {
+  animation: bobbing-slow 4.2s ease-in-out infinite;
+}
+
+.animate-star-wiggle {
+  animation: star-wiggle 0.55s ease-in-out infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Custom retro scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Retro flat shadow and hover utilities */
+.drop-shadow-flat {
+  filter: drop-shadow(0px 2px 0px rgba(0, 0, 0, 0.08));
+}
+
+.box-shadow-card {
+  box-shadow: 0 16px 48px -8px var(--color-shadow), 0 0 0 1px var(--color-border);
+}
+
+/* ============================================================ */
+/* PERFORMANCE: Hardware-accelerated smooth scroll for modals   */
+/* ============================================================ */
+.modal-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  will-change: scroll-position;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* GPU-accelerated layers for animated elements */
+.gpu-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Lazy image fade-in */
+@keyframes img-fade-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.img-lazy {
+  animation: img-fade-in 0.3s ease-out forwards;
+}
+
+/* 3D Icon hover lift effect */
+.icon-lift {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+}
+.icon-lift:hover {
+  transform: translateY(-4px) scale(1.08);
+}
+
+/* Skill chip pulse animation for hover */
+@keyframes chip-pop {
+  0%   { transform: translateY(0) scale(1); }
+  50%  { transform: translateY(-3px) scale(1.05); }
+  100% { transform: translateY(-2px) scale(1.03); }
+}
+.chip-hover:hover {
+  animation: chip-pop 0.18s ease forwards;
+}
+
+/* ============================================================ */
+/* ANIMATED WATER WAVES (Paani ki Lehar - Smooth & Relaxing)    */
+/* ============================================================ */
+@keyframes waterWaveSlow {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-35px) translateZ(0) scaleY(1.05);
+  }
+  100% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+}
+
+@keyframes waterWaveMid {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1.04);
+  }
+  50% {
+    transform: translateX(40px) translateZ(0) scaleY(0.95);
+  }
+  100% {
+    transform: translateX(0) translateZ(0) scaleY(1.04);
+  }
+}
+
+@keyframes waterWaveFront {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-20px) translateZ(0) scaleY(1.03);
+  }
+  100% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+}
+
+.animate-water-wave-slow {
+  animation: waterWaveSlow 14s ease-in-out infinite;
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+.animate-water-wave-mid {
+  animation: waterWaveMid 10s ease-in-out infinite;
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+.animate-water-wave-front {
+  animation: waterWaveFront 7s ease-in-out infinite;
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
