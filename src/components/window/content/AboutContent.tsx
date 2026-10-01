@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { PORTFOLIO_DATA } from "@/data/content";
 import { CERTIFICATES_DATA, Certificate } from "@/data/certificates";
@@ -26,6 +27,8 @@ import {
   ZoomIn,
   BarChart3,
   Languages,
+  Sparkles,
+  ArrowRight,
 } from "lucide-react";
 
 interface AboutContentProps {
@@ -37,6 +40,11 @@ export const AboutContent: React.FC<AboutContentProps> = ({ onNavigate }) => {
 
   const [activeSkillCategory, setActiveSkillCategory] = useState<string>("All");
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Categorized Technical Skills — clean chips only
   const skillsData = [
@@ -634,13 +642,50 @@ export const AboutContent: React.FC<AboutContentProps> = ({ onNavigate }) => {
       </div>
 
       {/* ================================================================ */}
-      {/* CERTIFICATE LIGHTBOX MODAL                                        */}
+      {/* SECTION 7 — GET IN TOUCH / CONTACT ME CALL TO ACTION              */}
       {/* ================================================================ */}
-      {selectedCert && (
+      <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-amber-100/50 dark:from-amber-950/40 dark:via-[#252a34] dark:to-orange-950/30 border-2 border-amber-300 dark:border-amber-700/60 shadow-md text-center space-y-4">
+        <div className="space-y-1.5 max-w-xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-200/60 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 text-xs font-mono font-bold">
+            <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+            <span>Open for Work &amp; Opportunities</span>
+          </div>
+          <h3 className="font-mono font-bold text-lg sm:text-xl text-slate-900 dark:text-white">
+            Have a project, role, or idea in mind?
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            I am currently open to Software Engineer opportunities, full-stack roles, and exciting collaborations. Let&apos;s talk!
+          </p>
+        </div>
+
+        <div className="flex items-center justify-center gap-3 pt-1 flex-wrap">
+          <button
+            type="button"
+            onClick={() => {
+              sound.playClick();
+              if (onNavigate) {
+                onNavigate("contact");
+              } else {
+                window.location.href = `mailto:${profile.email}`;
+              }
+            }}
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-mono font-bold text-sm sm:text-base shadow-md hover:shadow-amber-500/25 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span>Contact Me</span>
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* ================================================================ */}
+      {/* CERTIFICATE LIGHTBOX MODAL — Portaled to document.body            */}
+      {/* ================================================================ */}
+      {mounted && selectedCert && createPortal(
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm"
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm"
           onClick={() => { sound.playClickClose(); setSelectedCert(null); }}
         >
           <div
@@ -683,7 +728,8 @@ export const AboutContent: React.FC<AboutContentProps> = ({ onNavigate }) => {
               </a>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
