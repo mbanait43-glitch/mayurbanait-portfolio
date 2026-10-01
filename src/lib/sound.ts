@@ -370,15 +370,19 @@ class SoundEngine {
     const bgm = this.initBgm();
     if (!bgm) return false;
 
-    const isCurrentlyPlaying = !bgm.paused && bgm.currentTime > 0 && !bgm.ended;
-
-    if (isCurrentlyPlaying) {
-      bgm.pause();
+    // If currently playing or marked active, pause it
+    if (this.isBgmActive || (!bgm.paused && bgm.currentTime > 0)) {
+      try {
+        bgm.pause();
+      } catch (err) {
+        console.warn("BGM pause failed:", err);
+      }
       this.isBgmActive = false;
       this.playClickClose();
       this.notifyBgm(false);
       return false;
     } else {
+      // Turn on
       if (this.isMuted) {
         this.isMuted = false;
         try {
@@ -386,6 +390,9 @@ class SoundEngine {
         } catch {}
       }
       bgm.volume = 0.5;
+      this.isBgmActive = true;
+      this.notifyBgm(true);
+
       const playPromise = bgm.play();
       if (playPromise !== undefined) {
         playPromise
@@ -399,8 +406,6 @@ class SoundEngine {
             this.notifyBgm(false);
           });
       }
-      this.isBgmActive = true;
-      this.notifyBgm(true);
       return true;
     }
   }

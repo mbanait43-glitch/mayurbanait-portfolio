@@ -121,10 +121,9 @@ export const SharyapDesktop: React.FC = () => {
   // Background Music state
   const [isBgmPlaying, setIsBgmPlaying] = useState<boolean>(false);
 
-  // Star Mascot States (Hover wiggle + bottom caption, click spin + speech bubble)
+  // Star Mascot States (Click + Hover quotes in a single top speech bubble)
   const [isStarHovered, setIsStarHovered] = useState<boolean>(false);
-  const [starBottomCaption, setStarBottomCaption] = useState<string>("enjoy & have fun! ⭐");
-  const [starClickQuote, setStarClickQuote] = useState<string | null>(null);
+  const [starSpeechQuote, setStarSpeechQuote] = useState<string | null>(null);
   const [isStarSpinning, setIsStarSpinning] = useState<boolean>(false);
 
   // Frog Mascot States (Jump + sweet messages on touch/click)
@@ -136,6 +135,7 @@ export const SharyapDesktop: React.FC = () => {
   const starHoverIndexRef = useRef<number>(0);
 
   const frogTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const frogLockRef = useRef<boolean>(false);
   const frogPlayIndexRef = useRef<number>(0);
   const frogPauseIndexRef = useRef<number>(0);
 
@@ -191,20 +191,26 @@ export const SharyapDesktop: React.FC = () => {
     setActiveWindow(null);
   };
 
-  // Star Mascot Hover: plays sound, shows bottom caption, and triggers wiggle
+  // Star Mascot Hover: plays sound and triggers wiggle
   const handleStarMouseEnter = () => {
     sound.playStar();
     setIsStarHovered(true);
-    const caption = STAR_HOVER_QUOTES[starHoverIndexRef.current % STAR_HOVER_QUOTES.length];
-    starHoverIndexRef.current += 1;
-    setStarBottomCaption(caption);
+    if (!starSpeechQuote) {
+      const caption = STAR_HOVER_QUOTES[starHoverIndexRef.current % STAR_HOVER_QUOTES.length];
+      starHoverIndexRef.current += 1;
+      setStarSpeechQuote(caption);
+    }
   };
 
   const handleStarMouseLeave = () => {
     setIsStarHovered(false);
+    if (starTimerRef.current) clearTimeout(starTimerRef.current);
+    starTimerRef.current = setTimeout(() => {
+      setStarSpeechQuote(null);
+    }, 1200);
   };
 
-  // Star Mascot Click: spins 360 and speaks a fun quote
+  // Star Mascot Click / Tap: spins 360 and speaks a fun quote in the TOP bubble
   const handleStarClick = () => {
     sound.playStar();
     setIsStarSpinning(true);
@@ -212,12 +218,12 @@ export const SharyapDesktop: React.FC = () => {
 
     const quote = STAR_CLICK_QUOTES[starIndexRef.current % STAR_CLICK_QUOTES.length];
     starIndexRef.current += 1;
-    setStarClickQuote(quote);
+    setStarSpeechQuote(quote);
 
     if (starTimerRef.current) clearTimeout(starTimerRef.current);
     starTimerRef.current = setTimeout(() => {
-      setStarClickQuote(null);
-    }, 3500);
+      setStarSpeechQuote(null);
+    }, 3800);
   };
 
   // Frog Mascot Hover Sound & Teaser
@@ -232,11 +238,18 @@ export const SharyapDesktop: React.FC = () => {
     }
   };
 
-  // Frog Mascot Click / Touch: Toggles Background Music with sweet message
-  const handleFrogClick = (e?: React.MouseEvent | React.TouchEvent) => {
+  // Frog Mascot Click / Touch: Toggles Background Music reliably with debounce
+  const handleFrogClick = (e?: React.MouseEvent) => {
     if (e) {
       e.stopPropagation();
     }
+    // Prevent double-trigger on mobile devices
+    if (frogLockRef.current) return;
+    frogLockRef.current = true;
+    setTimeout(() => {
+      frogLockRef.current = false;
+    }, 350);
+
     sound.playFrogHover();
     const isNowPlaying = sound.toggleBgm();
     setIsFrogJumping(true);
@@ -330,20 +343,22 @@ export const SharyapDesktop: React.FC = () => {
       <main className="relative z-20 flex-1 flex flex-col items-center justify-center px-3 sm:px-6 pt-10 pb-6 sm:py-14 my-auto w-full">
         <div className="relative w-full max-w-[540px] sm:max-w-[620px]">
           {/* ======================================================== */}
-          {/* STAR MASCOT: PROPERLY ARRANGED & SCALED FOR ALL SCREENS  */}
+          {/* STAR MASCOT: PROPERLY ARRANGED & SCALED (NO BOTTOM BUBBLE)*/}
           {/* ======================================================== */}
-          <div className="absolute -top-7 sm:-top-16 left-2.5 sm:left-5 z-40 group pointer-events-auto">
-            {/* Click Quote (Speech Bubble Above on Click) */}
+          <div className="absolute -top-10 sm:-top-16 -left-1 sm:left-2 z-40 group pointer-events-auto">
+            {/* Single Speech Bubble ABOVE the Star with downward pointer (nok) */}
             <AnimatePresence>
-              {starClickQuote && (
+              {starSpeechQuote && (
                 <motion.div
-                  initial={{ opacity: 0, y: 6, scale: 0.9 }}
+                  initial={{ opacity: 0, y: 8, scale: 0.9 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -4, scale: 0.9 }}
-                  className="absolute -top-8 sm:-top-11 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 sm:px-3.5 py-0.5 sm:py-1.5 rounded-full bg-white dark:bg-slate-800 border-2 border-amber-300 dark:border-amber-600 shadow-xl text-[10px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-200 pointer-events-none z-50"
+                  transition={{ duration: 0.18 }}
+                  className="absolute -top-11 sm:-top-14 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 sm:px-4 py-1 sm:py-1.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-2xl text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-100 pointer-events-none z-50 select-none animate-bounce-subtle"
                 >
-                  {starClickQuote}
-                  <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-2 sm:w-3 h-2 sm:h-3 bg-white dark:bg-slate-800 border-r-2 border-b-2 border-amber-300 dark:border-amber-600 rotate-45" />
+                  <span>{starSpeechQuote}</span>
+                  {/* Downward pointer (nok) pointing straight at star's head */}
+                  <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white dark:bg-slate-800 border-r-2 border-b-2 border-amber-400 dark:border-amber-500 rotate-45" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -353,13 +368,10 @@ export const SharyapDesktop: React.FC = () => {
               type="button"
               onMouseEnter={handleStarMouseEnter}
               onMouseLeave={handleStarMouseLeave}
-              onTouchStart={() => {
-                sound.playStar();
-                handleStarClick();
-              }}
               onClick={handleStarClick}
+              style={{ touchAction: "manipulation" }}
               className="flex flex-col items-center cursor-pointer focus:outline-none select-none"
-              title="Click or tap for fun!"
+              title="Click or tap Starry!"
             >
               <div
                 className={`transition-transform duration-300 ${
@@ -381,32 +393,16 @@ export const SharyapDesktop: React.FC = () => {
                 />
               </div>
             </button>
-
-            {/* Caption generated BELOW the star on hover */}
-            <AnimatePresence>
-              {isStarHovered && (
-                <motion.div
-                  initial={{ opacity: 0, y: -6, scale: 0.88 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -4, scale: 0.9 }}
-                  transition={{ duration: 0.16 }}
-                  className="absolute top-[46px] sm:top-[76px] left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-xl text-[10px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-200 pointer-events-none z-50 animate-bounce-subtle"
-                >
-                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-white dark:bg-slate-800 border-l-2 border-t-2 border-amber-400 dark:border-amber-500 rotate-45" />
-                  <span>{starBottomCaption}</span>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
 
           {/* ======================================================== */}
           {/* THE HOME BOX (EXACT ORIGINAL BOX & ORIGINAL ICONS)       */}
           {/* ======================================================== */}
           <div className="rounded-xl overflow-hidden box-shadow-card bg-white dark:bg-[#1e232b] border border-slate-200/90 dark:border-slate-700/90">
-            {/* Dark Title Bar: "home" on left and 3 retro OS window control dots (Red, Yellow, Green) on right */}
+            {/* Dark Title Bar: "home" on left (with left padding to avoid star overlap) and 3 retro OS window control dots */}
             <div
               onClick={activeWindow ? handleCloseWindow : undefined}
-              className={`bg-[#383c44] dark:bg-[#22262e] text-white px-5 sm:px-6 py-2.5 sm:py-3 select-none flex items-center justify-between transition-colors ${
+              className={`bg-[#383c44] dark:bg-[#22262e] text-white pl-12 sm:pl-16 pr-5 sm:pr-6 py-2.5 sm:py-3 select-none flex items-center justify-between transition-colors ${
                 activeWindow ? "cursor-pointer hover:bg-[#434852]" : ""
               }`}
               title={activeWindow ? "Click to bring home to front" : undefined}
@@ -532,11 +528,8 @@ export const SharyapDesktop: React.FC = () => {
           <button
             type="button"
             onMouseEnter={handleFrogMouseEnter}
-            onTouchStart={(e) => {
-              e.preventDefault();
-              handleFrogClick(e);
-            }}
             onClick={handleFrogClick}
+            style={{ touchAction: "manipulation" }}
             className={`cursor-pointer transition-transform duration-300 hover:scale-110 active:scale-90 focus:outline-none select-none ${
               isFrogJumping ? "-translate-y-6 scale-115 rotate-3" : ""
             }`}

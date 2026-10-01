@@ -122,8 +122,8 @@ export const PORTFOLIO_DATA = {
         "Interactive React charts visualizing pH levels, turbidity, and water flow over time.",
         "Modular Spring Boot REST controllers with persistent MySQL logging and role-based access.",
       ],
-      githubUrl: "https://github.com/mbanait43-glitch",
-      liveUrl: "https://github.com/mbanait43-glitch",
+      githubUrl: "https://github.com/mbanait43-glitch/smart-river-surveillance-project",
+      liveUrl: "https://smart-river-surveillance-project.vercel.app",
       featured: true,
     },
     {
@@ -147,8 +147,8 @@ export const PORTFOLIO_DATA = {
         "JWT token-based auth with refresh token rotation and protected API endpoints.",
         "Clean architecture separating domain models, data access layers, and API controllers.",
       ],
-      githubUrl: "https://github.com/mbanait43-glitch",
-      liveUrl: "https://github.com/mbanait43-glitch",
+      githubUrl: "https://github.com/mbanait43-glitch/Bank-Management-System-PostgreSQL",
+      liveUrl: "https://github.com/mbanait43-glitch/Bank-Management-System-PostgreSQL",
       featured: true,
     },
     {
