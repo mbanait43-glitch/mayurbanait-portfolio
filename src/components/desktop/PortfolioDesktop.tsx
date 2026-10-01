@@ -346,19 +346,22 @@ export const PortfolioDesktop: React.FC = () => {
           {/* STAR MASCOT: PROPERLY ARRANGED & SCALED (NO BOTTOM BUBBLE)*/}
           {/* ======================================================== */}
           <div className="absolute -top-10 sm:-top-16 -left-1 sm:left-2 z-40 group pointer-events-auto">
-            {/* Single Speech Bubble ABOVE the Star with downward pointer (nok) */}
+            {/* Star Speech Bubble: RIGHT side on Mobile (< sm), ABOVE star on Desktop (sm: and up) */}
             <AnimatePresence>
               {starSpeechQuote && (
                 <motion.div
-                  initial={{ opacity: 0, y: 4, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -4, scale: 0.9 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.18 }}
-                  className="absolute -top-8 sm:-top-10 left-0 sm:left-1 whitespace-nowrap px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-2xl text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-100 pointer-events-none z-50 select-none animate-bounce-subtle"
+                  className="absolute top-1/2 -translate-y-1/2 left-[50px] sm:top-auto sm:-top-10 sm:translate-y-0 sm:left-1 whitespace-nowrap px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-2xl text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-100 pointer-events-none z-50 select-none animate-bounce-subtle"
                 >
                   <span>{starSpeechQuote}</span>
-                  {/* Downward V-shape pointer precisely under 'welcome' at user's red V mark, pointing directly to star */}
-                  <div className="absolute -bottom-1.5 left-6 sm:left-7 w-3.5 h-3.5 bg-white dark:bg-slate-800 border-r-2 border-b-2 border-amber-400 dark:border-amber-500 rotate-45" />
+                  {/* Mobile pointer: points LEFT towards star (< sm) */}
+                  <div className="sm:hidden absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-white dark:bg-slate-800 border-l-2 border-b-2 border-amber-400 dark:border-amber-500 rotate-45" />
+
+                  {/* Desktop pointer: points DOWN (V shape) at user's red mark directly above star head */}
+                  <div className="hidden sm:block absolute -bottom-1.5 left-6 sm:left-7 w-3.5 h-3.5 bg-white dark:bg-slate-800 border-r-2 border-b-2 border-amber-400 dark:border-amber-500 rotate-45" />
                 </motion.div>
               )}
             </AnimatePresence>
