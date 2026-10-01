@@ -354,7 +354,7 @@ export const PortfolioDesktop: React.FC = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.18 }}
-                  className="absolute top-1/2 -translate-y-1/2 left-[50px] sm:top-auto sm:-top-10 sm:translate-y-0 sm:left-1 whitespace-nowrap px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-2xl text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-100 pointer-events-none z-50 select-none animate-bounce-subtle"
+                  className="absolute top-1 sm:top-auto sm:-top-14 left-[50px] sm:left-1 whitespace-nowrap px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-2xl text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-100 pointer-events-none z-50 select-none animate-bounce-subtle"
                 >
                   <span>{starSpeechQuote}</span>
                   {/* Mobile pointer: points LEFT towards star (< sm) */}
