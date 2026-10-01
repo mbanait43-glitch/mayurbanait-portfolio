@@ -354,11 +354,11 @@ export const PortfolioDesktop: React.FC = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -4, scale: 0.9 }}
                   transition={{ duration: 0.18 }}
-                  className="absolute -top-10 sm:-top-13 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 sm:px-4 py-1 sm:py-1.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-2xl text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-100 pointer-events-none z-50 select-none animate-bounce-subtle"
+                  className="absolute -top-11 sm:-top-14 left-0 sm:left-1 whitespace-nowrap px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-amber-400 dark:border-amber-500 shadow-2xl text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-100 pointer-events-none z-50 select-none animate-bounce-subtle"
                 >
                   <span>{starSpeechQuote}</span>
-                  {/* Downward pointer (choch) pointing cleanly to star's head */}
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-white dark:bg-slate-800 border-r-2 border-b-2 border-amber-400 dark:border-amber-500 rotate-45 rounded-xs shadow-xs" />
+                  {/* Downward pointer (choch) aligned directly above star's head (matching red V) */}
+                  <div className="absolute -bottom-2 left-5 sm:left-8 w-3.5 h-3.5 bg-white dark:bg-slate-800 border-r-2 border-b-2 border-amber-400 dark:border-amber-500 rotate-45 rounded-xs shadow-xs" />
                 </motion.div>
               )}
             </AnimatePresence>
