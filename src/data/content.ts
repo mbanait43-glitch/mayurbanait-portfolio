@@ -148,7 +148,7 @@ export const PORTFOLIO_DATA = {
         "Clean architecture separating domain models, data access layers, and API controllers.",
       ],
       githubUrl: "https://github.com/mbanait43-glitch/Bank-Management-System-PostgreSQL",
-      liveUrl: "https://github.com/mbanait43-glitch/Bank-Management-System-PostgreSQL",
+      liveUrl: "https://bank-management-system-frontend-vu7k.onrender.com/sign-in",
       featured: true,
     },
     {

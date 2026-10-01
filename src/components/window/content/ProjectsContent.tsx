@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { PORTFOLIO_DATA } from "@/data/content";
 import { Project } from "@/types";
@@ -41,6 +42,11 @@ export const ProjectsContent: React.FC = () => {
   } | null>(null);
   const [statusModalProject, setStatusModalProject] = useState<Project | null>(null);
   const [copiedSpecs, setCopiedSpecs] = useState<boolean>(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const { projects, profile } = PORTFOLIO_DATA;
 
@@ -376,11 +382,11 @@ export const ProjectsContent: React.FC = () => {
       {/* ============================================================ */}
       {/* 5. LIGHTBOX MODAL FOR HIGH-RES PROJECT SCREENSHOTS           */}
       {/* ============================================================ */}
-      {selectedImage && (
+      {mounted && selectedImage && createPortal(
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm animate-fade-in"
           onClick={handleCloseImage}
         >
           <div
@@ -442,17 +448,18 @@ export const ProjectsContent: React.FC = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* ============================================================ */}
       {/* 6. PROJECT STATUS & ARCHITECTURE PREVIEW MODAL               */}
       {/* ============================================================ */}
-      {statusModalProject && (
+      {mounted && statusModalProject && createPortal(
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[75] flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm animate-fade-in"
           onClick={handleCloseStatusModal}
         >
           <div
@@ -610,7 +617,8 @@ export const ProjectsContent: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

@@ -20,7 +20,7 @@ export const CERTIFICATES_DATA: Certificate[] = [
     pdfPath: "/certificates/google-ai.pdf",
     verificationUrl: "https://coursera.org/verify/specialization/B7MLFZDGPRHN",
     category: "AI & ML",
-    skills: ["Generative AI", "AI Prompting", "Workplace Productivity", "Ethical AI", "Workflow Automation"],
+    skills: ["Generative AI", "AI Prompting", "Workplace Productivity", "Ethical AI"],
   },
   {
     id: "google-prompting-essentials",
@@ -31,7 +31,7 @@ export const CERTIFICATES_DATA: Certificate[] = [
     pdfPath: "/certificates/google-prompting.pdf",
     verificationUrl: "https://coursera.org/verify/specialization/ZFHGXJGMSJON",
     category: "AI & ML",
-    skills: ["Prompt Engineering", "Large Language Models", "Multimodal AI", "Context Optimization", "Chain-of-Thought"],
+    skills: ["Prompt Engineering", "Large Language Models", "Multimodal AI", "Context Optimization"],
   },
   {
     id: "oracle-agentic-ai",
@@ -41,7 +41,7 @@ export const CERTIFICATES_DATA: Certificate[] = [
     imagePath: "/certificates/oracle-agentic-ai.png",
     pdfPath: "/certificates/oracle-agentic-ai.pdf",
     category: "Cloud & Enterprise",
-    skills: ["Oracle Cloud Infrastructure (OCI)", "Agentic AI", "AI Architecture", "Cloud Security", "GenAI Services"],
+    skills: ["Oracle Cloud (OCI)", "Agentic AI", "AI Architecture", "Cloud Security"],
   },
   {
     id: "ibm-skillsbuild-internship",
@@ -51,7 +51,7 @@ export const CERTIFICATES_DATA: Certificate[] = [
     imagePath: "/certificates/ibm-skillsbuild.png",
     pdfPath: "/certificates/ibm-skillsbuild.pdf",
     category: "Cloud & Enterprise",
-    skills: ["Data Analysis", "IBM Cloud", "Python", "AI Integration", "Data Analytics", "Machine Learning"],
+    skills: ["Data Analysis", "IBM Cloud", "Python", "Machine Learning"],
   },
   {
     id: "cisco-python-1",
@@ -61,7 +61,7 @@ export const CERTIFICATES_DATA: Certificate[] = [
     imagePath: "/certificates/cisco-python-1.png",
     pdfPath: "/certificates/cisco-python-1.pdf",
     category: "Programming",
-    skills: ["Python Fundamentals", "Control Flow", "Data Types", "Functions & Logic", "Data Structures"],
+    skills: ["Python Fundamentals", "Control Flow", "Data Types", "Functions & Logic"],
   },
   {
     id: "cisco-python-2",
@@ -71,7 +71,7 @@ export const CERTIFICATES_DATA: Certificate[] = [
     imagePath: "/certificates/cisco-python-2.png",
     pdfPath: "/certificates/cisco-python-2.pdf",
     category: "Programming",
-    skills: ["OOP in Python", "Modules & Packages", "String Processing", "Exception Handling", "File Processing"],
+    skills: ["OOP in Python", "Modules & Packages", "Exception Handling", "File Processing"],
   },
   {
     id: "cisco-intro-cybersecurity",
@@ -81,7 +81,7 @@ export const CERTIFICATES_DATA: Certificate[] = [
     imagePath: "/certificates/cisco-intro-cybersecurity.png",
     pdfPath: "/certificates/cisco-intro-cybersecurity.pdf",
     category: "Cybersecurity & Networks",
-    skills: ["Threat Intelligence", "Data Confidentiality", "Defense in Depth", "Security Principles", "Malware Analysis"],
+    skills: ["Threat Intelligence", "Data Confidentiality", "Defense in Depth", "Security Principles"],
   },
   {
     id: "cisco-cybersecurity-essentials",
@@ -91,7 +91,7 @@ export const CERTIFICATES_DATA: Certificate[] = [
     imagePath: "/certificates/cisco-cybersecurity-essentials.png",
     pdfPath: "/certificates/cisco-cybersecurity-essentials.pdf",
     category: "Cybersecurity & Networks",
-    skills: ["Network Security", "Cryptography", "Firewalls", "Incident Response", "Vulnerability Assessment"],
+    skills: ["Network Security", "Cryptography", "Firewalls", "Incident Response"],
   },
   {
     id: "cisco-ccna-intro-networks",
@@ -101,6 +101,6 @@ export const CERTIFICATES_DATA: Certificate[] = [
     imagePath: "/certificates/cisco-ccna.png",
     pdfPath: "/certificates/cisco-ccna.pdf",
     category: "Cybersecurity & Networks",
-    skills: ["TCP/IP", "IPv4 & IPv6 Subnetting", "Ethernet Switching", "Router Configuration", "Network Protocols"],
+    skills: ["TCP/IP Protocols", "IPv4 & IPv6 Subnetting", "Ethernet Switching", "Router Configuration"],
   },
 ];

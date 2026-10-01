@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { CERTIFICATES_DATA, Certificate } from "@/data/certificates";
 import { PORTFOLIO_DATA } from "@/data/content";
@@ -20,7 +21,12 @@ import {
 export const CertificatesContent: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [mounted, setMounted] = useState(false);
   const { codingStats } = PORTFOLIO_DATA;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const categories = [
     "All",
@@ -91,7 +97,7 @@ export const CertificatesContent: React.FC = () => {
       </div>
 
       {/* Certificates Responsive Grid (3 per row on desktop/laptop, 2 on tablet, 1 on phone) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch">
         {filteredCerts.map((cert) => (
           <div
             key={cert.id}
@@ -100,7 +106,7 @@ export const CertificatesContent: React.FC = () => {
             {/* Preview Thumbnail Container */}
             <div
               onClick={() => handleOpenLightbox(cert)}
-              className="relative w-full h-44 sm:h-48 bg-slate-100 dark:bg-slate-800/80 cursor-pointer overflow-hidden border-b border-slate-200 dark:border-slate-700/80 group-hover:opacity-95 transition-opacity flex-shrink-0"
+              className="relative w-full h-40 sm:h-44 bg-slate-100 dark:bg-slate-800/80 cursor-pointer overflow-hidden border-b border-slate-200 dark:border-slate-700/80 group-hover:opacity-95 transition-opacity flex-shrink-0"
               title="Click to view full certificate"
             >
               <Image
@@ -120,8 +126,8 @@ export const CertificatesContent: React.FC = () => {
               </div>
             </div>
 
-            {/* Certificate Meta Details & Bottom Actions - Flex-1 tightly organized */}
-            <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
+            {/* Certificate Meta Details & Bottom Actions - Perfectly Balanced & Compact */}
+            <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between space-y-2.5">
               <div className="space-y-2">
                 {/* Issuer Badge & Date below image so certificate logo is 100% visible */}
                 <div className="flex items-center justify-between gap-2 text-xs font-mono">
@@ -140,13 +146,14 @@ export const CertificatesContent: React.FC = () => {
                   </h3>
                 </div>
 
-                {/* Skills/Tags */}
+                {/* Skills/Tags - Balanced 2-column grid: fills both columns completely with zero empty gaps */}
                 {cert.skills && cert.skills.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 pt-0.5">
+                  <div className="grid grid-cols-2 gap-1.5 pt-1">
                     {cert.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] font-mono text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 select-none"
+                        className="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-[10.5px] font-mono text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 text-center truncate select-none shadow-[inset_0_1px_1px_rgba(0,0,0,0.02)]"
+                        title={skill}
                       >
                         {skill}
                       </span>
@@ -156,7 +163,7 @@ export const CertificatesContent: React.FC = () => {
               </div>
 
               {/* Action Buttons: View PDF & Verify - tight at the bottom without large empty gap */}
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center gap-2">
+              <div className="pt-2.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center gap-2">
                 <a
                   href={cert.pdfPath || cert.imagePath}
                   target="_blank"
@@ -230,12 +237,12 @@ export const CertificatesContent: React.FC = () => {
         </div>
       </div>
 
-      {/* Full-Screen Lightbox Modal */}
-      {selectedCert && (
+      {/* Full-Screen Lightbox Modal - Portaled to document.body for perfect viewport centering */}
+      {mounted && selectedCert && createPortal(
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm animate-fade-in"
           onClick={handleCloseLightbox}
         >
           <div
@@ -318,7 +325,8 @@ export const CertificatesContent: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
